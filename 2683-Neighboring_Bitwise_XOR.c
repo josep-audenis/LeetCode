@@ -44,5 +44,5 @@ bool doesValidArrayExist(int* derived, int derivedSize) {
     return (!sum);
 }
 
-//Runtime: 0ms 
-//Memory: 22.70MB
+// Runtime: 0ms 
+// Memory: 22.70MB
