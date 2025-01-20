@@ -111,4 +111,3 @@ int minCost(int** grid, int gridSize, int* gridColSize) {
 
 // Runtime: 24ms 
 // Memory: 15.86MB
-// Inspired by user An-Wen Deng

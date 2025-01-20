@@ -46,8 +46,8 @@ uint32_t pop(Heap* heap) {
     uint32_t root = heap->items[0];
     uint32_t last = heap->items[--heap->size];
 
-    int i = 0, child;
-    for (; (child = 2 * i + 1) < heap->size; i = child) {
+    int i, child;
+    for (i = 0; (child = 2 * i + 1) < heap->size; i = child) {
         if (child + 1 < heap->size && (heap->items[child] >> 16) > (heap->items[child + 1] >> 16))
             child++;
         if ((last >> 16) <= (heap->items[child] >> 16))
@@ -107,4 +107,3 @@ int trapRainWater(int** heightMap, int heightMapSize, int* heightMapColSize) {
 
 // Runtime: 10ms 
 // Memory: 10.55MB
-// Inspired by user alpindale
