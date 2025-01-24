@@ -33,7 +33,6 @@
 // · 1 <= n <= 105
 // · The values in derived are either 0's or 1's
 
-
 bool doesValidArrayExist(int* derived, int derivedSize) {
 
     int sum = 0;
