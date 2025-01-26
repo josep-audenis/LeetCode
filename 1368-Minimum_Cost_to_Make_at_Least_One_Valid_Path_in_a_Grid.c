@@ -35,7 +35,7 @@
 const int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
 int isOutside(int i, int j, int maxC, int maxR) {
-    return (i < 0 || j < 0 || i >= maxR || j >= maxC);                  //check if coordinates are outside the matrix
+    return (i < 0 || j < 0 || i >= maxR || j >= maxC);                  //check if cell is outside the matrix
 }
 
 uint32_t pack(int c, int i, int j) {

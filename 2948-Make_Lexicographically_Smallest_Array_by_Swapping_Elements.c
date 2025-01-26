@@ -33,7 +33,7 @@
 // · 1 <= nums[i] <= 109
 // · 1 <= limit <= 109
 
-int compare(const void *a, const void *b){                              //compare the 0 index of diferent arrays
+int compare(const void *a, const void *b){                              //compare the first index of two arrays
     int *arr1 = (int *)a;
     int *arr2 = (int *)b;
     return (arr1[0] - arr2[0]);
@@ -51,29 +51,29 @@ int* lexicographicallySmallestArray(int* nums, int numsSize, int limit, int* ret
     *returnSize = numsSize;
     int sorted[numsSize][2]; 
 
-    for (int i = 0; i < numsSize; i++){                                 //initialize the values of the sorted array
+    for (int i = 0; i < numsSize; i++){                                 //initialize the values of the sorted array with the values of nums array and their indices
         sorted[i][0] = nums[i];
         sorted[i][1] = i;
     }
 
     qsort(sorted, numsSize, sizeof(sorted[0]), compare);                //sort the array using compare method
 
-    int indices[numsSize];
+    int indices[numsSize];                                              //temporary array to store indices of elements in the current group
     int i = 0; 
     while (i < numsSize){
         int size = 0;         
         int prev = sorted[i][0]; 
-        while(i < numsSize && sorted[i][0] <= (prev + limit)){
-            indices[size++] = sorted[i][1];
+        while(i < numsSize && sorted[i][0] <= (prev + limit)){          //group elements whose values differ by at most `limit`
+            indices[size++] = sorted[i][1];                             //add the index of the current element to the group
             prev = sorted[i][0];
             i++;
         }
         
-        qsort(indices, size, sizeof(int), compare2);
+        qsort(indices, size, sizeof(int), compare2);                    //sort the indices of the current group to maintain lexicographical order
         
         for (int j = 0, k = i - size; j < size; j++, k++){
-            result[indices[j]] = sorted[k][0];
-        }
+            result[indices[j]] = sorted[k][0];                          //assign the sorted value to its original position
+        }   
     }
 
     return result;

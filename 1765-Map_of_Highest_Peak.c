@@ -93,7 +93,7 @@ int** highestPeak(int** isWater, int isWaterSize, int* isWaterColSize, int* retu
                 
                 value = map[ai][aj];                                                        //now we don't care about water, because all water cells are correctly set
 
-                minH = (minH < value ? minH : value);                                               
+                minH = (minH < value ? minH : value);                                       //gets the minimum value of all adjacent cells                                    
             }
 
             map[i][j] = minH+1;
