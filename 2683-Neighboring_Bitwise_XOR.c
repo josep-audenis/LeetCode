@@ -37,10 +37,10 @@ bool doesValidArrayExist(int* derived, int derivedSize) {
 
     int sum = 0;
 
-    for (int i = 0; i < derivedSize; i++) {
-        sum ^= derived[i];
+    for (int i = 0; i < derivedSize; i++) {     //iterate through all "bits" of the array
+        sum ^= derived[i];                      //XORs the values of the "bits" in the array
     }
-    return (!sum);
+    return (!sum);                              //if the result of XORing all values is 0, a valid original array exists
 }
 
 // Runtime: 0ms 

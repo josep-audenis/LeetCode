@@ -35,7 +35,7 @@ int countServers(int** grid, int gridSize, int* gridColSize) {
 
     for (uint8_t i = 0; i < gridSize; i++) {
         for (uint8_t j = 0; j < *gridColSize; j++) {
-            if (grid[i][j]) {
+            if (grid[i][j]) {                                                   //if there is a server, increment the servers per column and row variable
                 n_rows[j]++;
                 n_cols[i]++;
             }
@@ -44,7 +44,7 @@ int countServers(int** grid, int gridSize, int* gridColSize) {
 
     for (uint8_t i = 0; i < gridSize; i++) {
         for (uint8_t j = 0; j < *gridColSize; j++) {
-            if (grid[i][j] && (n_rows[j] > 1 || n_cols[i] > 1)) count++;
+            if (grid[i][j] && (n_rows[j] > 1 || n_cols[i] > 1)) count++;        //add one more server that can communicate if there are more servers in that row or column
         }
     }
 

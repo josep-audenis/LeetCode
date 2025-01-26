@@ -29,10 +29,10 @@
 // · isWater[i][j] is 0 or 1.
 // · There is at least one water cell.
 
-const int dirs[8][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+const int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
 int isOutside(int i, int j, int maxR, int maxC) {
-    return (i < 0 || j < 0 || i >= maxR || j >= maxC);
+    return (i < 0 || j < 0 || i >= maxR || j >= maxC);                                      //check if cell is outside the matrix
 }
 
 /**
@@ -49,11 +49,10 @@ int** highestPeak(int** isWater, int isWaterSize, int* isWaterColSize, int* retu
 
     int ** map = malloc(r * sizeof(int *));
     for (int i = 0; i < r; i++) {
-        
         (*returnColumnSizes)[i] = *isWaterColSize;
         map[i] = malloc(c * sizeof(int));
-        if (c > 1) {
-            memset(map[i], 10000, sizeof(int) * c);
+        if (c > 1) {                                                                        //check size of column
+            memset(map[i], 10000, sizeof(int) * c);                                         //set the entire matrix to maximum value
         } else {
             map[i][0] = 10000;
         }
@@ -63,38 +62,38 @@ int** highestPeak(int** isWater, int isWaterSize, int* isWaterColSize, int* retu
     for (int i = 0; i < r; i++) {
         for (int j = 0; j < c; j++) {
             if (isWater[i][j]) {
-                map[i][j] = 0;
+                map[i][j] = 0;                                                              //set the water cells to 0 in the first iteration
                 continue;
             }
             minH = (r*c) + 1;
-            for (int d = 0; d < 4; d++) {
+            for (int d = 0; d < 4; d++) {                                                   //check all adjacent cells
                 ai = i + dirs[d][0];
                 aj = j + dirs[d][1];
 
                 if (isOutside(ai, aj, r, c)) continue;
                 
-                value = (isWater[ai][aj] ? 0 : map[ai][aj]);
+                value = (isWater[ai][aj] ? 0 : map[ai][aj]);                                //gets the value of the adjacent cell, if it's water sets 0 since it's the first iteration all values are 10000
 
-                minH = (minH < value ? minH : value);
+                minH = (minH < value ? minH : value);                                       //gets the minimum value of all adjacent cells
             }
 
-            map[i][j] = minH+1;
+            map[i][j] = minH+1;                                                             //adds one the the minimum value of the adjacent cells
         }
     }
 
-    for (int i = r - 1; i >= 0; i--) {
-        for (int j = c - 1; j >= 0; j--) {
-            if (isWater[i][j]) continue;
+    for (int i = r - 1; i >= 0; i--) {                                                      //since in the first iteration there where no water cells and the values where all initialized at 10000
+        for (int j = c - 1; j >= 0; j--) {                                                  //iterate a second time the matrix backwards to recalculate all values
+            if (isWater[i][j]) continue;                                                    //don't want to touch water cells
             minH = (r*c) + 1;
-            for (int d = 0; d < 4; d++) {
+            for (int d = 0; d < 4; d++) {                                                   //check adjacent cells
                 ai = i + dirs[d][0];
                 aj = j + dirs[d][1];
 
                 if (isOutside(ai, aj, r, c)) continue;
                 
-                value = map[ai][aj];
+                value = map[ai][aj];                                                        //now we don't care about water, because all water cells are correctly set
 
-                minH = (minH < value ? minH : value);
+                minH = (minH < value ? minH : value);                                               
             }
 
             map[i][j] = minH+1;

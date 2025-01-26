@@ -26,10 +26,10 @@ int firstCompleteIndex(int* arr, int arrSize, int** mat, int matSize, int* matma
     int max_rows = matSize;
     int max_cols = *matmax_colsize;
 
-    int row[arrSize];
-    int col[arrSize];
+    int row[arrSize];                                                                                       
+    int col[arrSize];                                                                                       
     
-    int n_row[max_rows];
+    int n_row[max_rows];        
     int n_col[max_cols];
 
     memset(n_row, 0, sizeof(n_row));
@@ -38,14 +38,14 @@ int firstCompleteIndex(int* arr, int arrSize, int** mat, int matSize, int* matma
     for (int i = 0; i < max_rows; i++) {
         for (int j = 0; j < max_cols; j++) {
             int valor = mat[i][j];        
-            row[valor - 1] = i;
-            col[valor - 1] = j;
+            row[valor - 1] = i;                                                                             //stores the row of a value for O(1) access
+            col[valor - 1] = j;                                                                             //stores the column of a value for O(1) access
         }
     }
 
-    for (int i = 0; i < arrSize; i++) {
-        int valor = arr[i];
-        if (++n_row[row[valor - 1]] == max_cols || ++n_col[col[valor - 1]] == max_rows) return i;
+    for (int i = 0; i < arrSize; i++) {                                                                     //iterate through the array of painting order
+        int valor = arr[i];                                                                                 
+        if (++n_row[row[valor - 1]] == max_cols || ++n_col[col[valor - 1]] == max_rows) return i;           //if a column or row is completed return the number of steps
     }
 
     return 0;

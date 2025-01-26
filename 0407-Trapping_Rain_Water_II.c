@@ -20,12 +20,12 @@
 #define MAX 40000
 const int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-int isOutside(int i, int j, int maxR, int maxC) {
-    return (i < 0 || j < 0 || i >= maxR || j >= maxC);
+int isOutside(int i, int j, int maxR, int maxC) {   
+    return (i < 0 || j < 0 || i >= maxR || j >= maxC);  //check if coordinates are outside the matrix
 }
 
 uint32_t pack(int h, int i, int j) {
-    return ((uint32_t)h << 16) | (i << 8) | j;
+    return ((uint32_t)h << 16) | (i << 8) | j;          //pack height and coordinates in a single 32 bytes unsigned integer
 }
 
 typedef struct {

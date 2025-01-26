@@ -28,10 +28,10 @@
 bool dfs(int index, bool * visit, bool * stack, int ** graph, int n, int * nSafe, int * nCol) {
     if (stack[index]) return true;
     if (visit[index]) return false;
-    *nSafe -= 1;
+    *nSafe -= 1;                                                                                        //first assume that the node is not safe
     stack[index] = true;
     visit[index] = true;
-    for (int i = 0; i < nCol[index]; i++) {
+    for (int i = 0; i < nCol[index]; i++) {                                                             
         if (dfs(graph[index][i], visit, stack, graph, n, nSafe, nCol)) return true;
     }
     *nSafe += 1;
@@ -57,8 +57,8 @@ int* eventualSafeNodes(int** graph, int graphSize, int* graphColSize, int* retur
     int * safe = malloc(sizeof(int) * *returnSize);
     int index = 0;
     for (int i = 0; i < n; i++) {
-        if (!stack[i]) {
-            safe[index] = i;
+    if (!stack[i]) {                                                                                    //check if the node is not in the stack
+        safe[index] = i;                                                                                //construct the safe nodes array that will be returned
             index++;
         }
     }

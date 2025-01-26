@@ -34,7 +34,7 @@
 const int dirs[2][2] = {{1, 0}, {0, 1}}; 
 
 long long gridGame(int** grid, int gridSize, int* gridColSize) {
-    int r = gridSize;   //2
+    int r = gridSize;                                                   //2
     int c = *gridColSize;
 
     long long u[c];
@@ -44,24 +44,24 @@ long long gridGame(int** grid, int gridSize, int* gridColSize) {
     l[0] = grid[1][0];
 
     for (int i = 1; i < c; i++) {
-        u[i] = u[i - 1] + grid[0][i];
-        l[i] = l[i - 1] + grid[1][i];
+        u[i] = u[i - 1] + grid[0][i];                                   //check the previous upper row value
+        l[i] = l[i - 1] + grid[1][i];                                   //check the previous lower row value
     }
 
     long long au, al, points, max;
 
-    au = u[c - 1] - u[0];
+    au = u[c - 1] - u[0];                                               
     al = 0;
 
-    points = au;
+    points = au;                                                        //set minimum points with a high possible value
 
     for (int i = 1; i < c; i++) {
-        au = u[c - 1] - u[i];
-        al = l[i - 1];
+        au = u[c - 1] - u[i];                                           //get the remaining upper row points if player 1 went to the lower row in the i column
+        al = l[i - 1];                                                  //get the remaining lower row points if player 1 went to the lower row in the i column
 
-        max = (au > al ? au : al);
+        max = (au > al ? au : al);                                      //get max points, this is be the player 2 scenario
 
-        points = (points < max ? points : max);
+        points = (points < max ? points : max);                         //get minimum points of all player 2 possible column decision
     }
     
     return points;

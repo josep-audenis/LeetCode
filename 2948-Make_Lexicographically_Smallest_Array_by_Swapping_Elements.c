@@ -33,13 +33,13 @@
 // · 1 <= nums[i] <= 109
 // · 1 <= limit <= 109
 
-int compare(const void *a, const void *b){
+int compare(const void *a, const void *b){                              //compare the 0 index of diferent arrays
     int *arr1 = (int *)a;
     int *arr2 = (int *)b;
     return (arr1[0] - arr2[0]);
 }
 
-int compare2(const void *a, const void *b){
+int compare2(const void *a, const void *b){                             //compare two single values
     return *(int *)a - *(int *)b;
 }
 
@@ -51,12 +51,12 @@ int* lexicographicallySmallestArray(int* nums, int numsSize, int limit, int* ret
     *returnSize = numsSize;
     int sorted[numsSize][2]; 
 
-    for (int i = 0; i < numsSize; i++){
+    for (int i = 0; i < numsSize; i++){                                 //initialize the values of the sorted array
         sorted[i][0] = nums[i];
         sorted[i][1] = i;
     }
 
-    qsort(sorted, numsSize, sizeof(sorted[0]), compare); 
+    qsort(sorted, numsSize, sizeof(sorted[0]), compare);                //sort the array using compare method
 
     int indices[numsSize];
     int i = 0; 

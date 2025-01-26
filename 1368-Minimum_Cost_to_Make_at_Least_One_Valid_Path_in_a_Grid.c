@@ -35,14 +35,14 @@
 const int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
 int isOutside(int i, int j, int maxC, int maxR) {
-    return (i < 0 || j < 0 || i >= maxR || j >= maxC);
+    return (i < 0 || j < 0 || i >= maxR || j >= maxC);                  //check if coordinates are outside the matrix
 }
 
 uint32_t pack(int c, int i, int j) {
-    return ((uint32_t) c << 16)| (i << 8) | j;
+    return ((uint32_t) c << 16)| (i << 8) | j;                          //pack cost and coordinates in a single 32 bytes unsigned integer
 }
 
-int * unpack(uint32_t packed) {
+int * unpack(uint32_t packed) {                                         //unpack the cost and coordinates in an integer array
     int * cords = malloc(sizeof(int) * 3);
     cords[0] = packed >> 16;
     cords[1] = (packed >> 8) & 255;
@@ -63,44 +63,44 @@ int minCost(int** grid, int gridSize, int* gridColSize) {
 
     for (int i = 0; i < numRows; i++) {
         for (int j = 0; j < numCols; j++) {
-            minCost[i][j] = 255;    
+            minCost[i][j] = 255;                                        //Initialize the minimum cost matrix with the maximum possible cost
         }
     }
 
     queue[back++] = pack(0, 0, 0);
     minCost[0][0] = 0;
 
-    while(front != back) {
+    while(front != back) {                                              //while the queue is not empty
         
         int * info = unpack(queue[front++]);
 
-        if (front >= maxSize) front -= maxSize;
+        if (front >= maxSize) front -= maxSize;                         //make the queue array circular
 
         int cost = info[0];
         int i = info[1];
         int j = info[2];
         free(info);
 
-        if (i == (numRows - 1) && j == (numCols - 1)) return cost;
+        if (i == (numRows - 1) && j == (numCols - 1)) return cost;      //arrived at the last bottom right cell of the matrix (the end)
 
         int direction = grid[i][j];
         
-        for (int k = 0; k < 4; k++) {
+        for (int k = 0; k < 4; k++) {                                   //check adjacent cells
             int ai = i + dirs[k][0];
             int aj = j + dirs[k][1];
 
             if (isOutside(ai, aj, numCols, numRows)) continue;
 
-            int aCost = cost + (k + 1 != direction);
+            int aCost = cost + (k + 1 != direction);                    //if the direction of the cell is different to the adjacent cell relative position, add 1 to the cost
 
-            if (aCost < minCost[ai][aj]) {
+            if (aCost < minCost[ai][aj]) {                              
                 minCost[ai][aj] = aCost;
-                if (k + 1 == direction) {
-                    if (front == 0) front = maxSize;
-                    queue[--front] = pack(aCost, ai, aj);
+                if (k + 1 == direction) {                               //check if the direction of the cell is equal to the adjacent cell relative position
+                    if (front == 0) front = maxSize;                    //make the queue array circular
+                    queue[--front] = pack(aCost, ai, aj);               //add cell to the front
                 } else {
-                    queue[back++] = pack(aCost, ai, aj);
-                    if (back >= maxSize) back -= maxSize; 
+                    queue[back++] = pack(aCost, ai, aj);                //add cell to the back
+                    if (back >= maxSize) back -= maxSize;               //make the queue array circular
                 }
             }
         }
