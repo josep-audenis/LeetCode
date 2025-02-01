@@ -131,5 +131,5 @@ int largestIsland(int** grid, int gridSize, int* gridColSize) {
 }
 
 
-// Runtime: ms 
-// Memory: MB
+// Runtime: 630ms 
+// Memory: 25.71MB
