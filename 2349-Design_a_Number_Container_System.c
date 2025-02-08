@@ -96,7 +96,7 @@ void numberContainersChange(NumberContainers * obj, int index, int number) {
     // Add index to the new number's mapping
     NumberToIndices * numEntry;
     HASH_FIND_INT(obj->numberToIndices, &number, numEntry);
-    
+
     if (!numEntry) {
         numEntry = malloc(sizeof(NumberToIndices));
         numEntry->number = number;
@@ -153,5 +153,5 @@ void numberContainersFree(NumberContainers* obj) {
     free(obj);
 }
 
-// Runtime: 1136ms 
-// Memory: 17.6MB
+// Runtime: 1396ms 
+// Memory: 134.24MB
