@@ -22,16 +22,16 @@
 uint16_t sum(int val) {
     uint16_t sum = 0;
     
-    while(val != 0) {
-        sum += val % 10;
+    while(val != 0) {								// Iterate through all the numbers in the integer
+        sum += val % 10;				
         val /= 10;
     }
 
     return sum;
 }
 
-uint32_t max(int v1, int v2) {
-    return (v1 > v2 ? v1 : v2);
+uint32_t max(int v1, int v2) {			
+    return (v1 > v2 ? v1 : v2);						// Returns the max value of two given integers
 }
 
 int maximumSum(int* nums, int numsSize) {
@@ -41,10 +41,10 @@ int maximumSum(int* nums, int numsSize) {
     for (int i = 0; i < numsSize; i++) {
         uint16_t val = sum(nums[i]);
         
-        if (map[val] != 0) {
-            res = max(res, map[val] + nums[i]);
+        if (map[val] != 0) {						// If there's no value equal to the sum of the digits
+            res = max(res, map[val] + nums[i]);		// Stores the max value of the sum
         }
-        map[val] = max(map[val], nums[i]);
+        map[val] = max(map[val], nums[i]);			// Stores the new value if it's greater than the previous one
     }
 
     free(map);
