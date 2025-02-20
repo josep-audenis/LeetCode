@@ -26,7 +26,7 @@ class Solution:
     def findDifferentBinaryString(self, nums: List[str]) -> str:	# Tis approach follows the mathematical theory of Cantor's Diagonal Argument
         string = []
         for i in range(len(nums)):
-            string.append("1" if nums[i][i] == "0" else "0")		# Flip the ith character of the ith string
+            string.append("0" if nums[i][i] == "1" else "1")		# Flip the ith character of the ith string
         
         return "".join(string)										# Convert to a string
 
